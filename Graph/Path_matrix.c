@@ -1,23 +1,25 @@
 #include <stdio.h>
 int mat[10][10], power_matrix[4][10][10], n, Br[10][10], p[10][10];
-int is_strong = 1;
 void input();
 void print(int[10][10]);
 void copy();
 void calculate_power_matrix();
+void create_all_path_matrix();
 void create_path_matrix();
+int is_strong();
 
 int main(void) {
     printf("\n");
     input();
     copy();
     calculate_power_matrix();
+    create_all_path_matrix();
     create_path_matrix();
     printf("\n\nBr:");
     print(Br);
     printf("\nPath matrix:");
     print(p);
-    if(is_strong) printf("\nThe graph is strongly conected\n\n");
+    if(is_strong()) printf("\nThe graph is strongly conected\n\n");
     else printf("\nThe graph is not connected strongly\n\n");
     return 0;
 }
@@ -72,7 +74,7 @@ void calculate_power_matrix() {
 }
 
 //Determine path matrix from power matrix
-void create_path_matrix() {
+void create_all_path_matrix() {
     for(int p = 0; p < 4; p++) {
         for(int i = 0; i < n; i++) {
             for(int j = 0; j < n; j++) {
@@ -80,10 +82,23 @@ void create_path_matrix() {
             }
         }
     }
+}
+
+//Determine path matrix which contains 0 and 1 only
+void create_path_matrix() {
     for(int i = 0; i < n; i++) {
         for(int j = 0; j < n; j++) {
-            if(Br[i][j] != 0) p[i][j] = 1;
-            else {p[i][j] = 0; is_strong = 0;}
+            if(Br[i][j]) p[i][j] = 1;
         }
     }
+}
+
+//Check connectivity of the adjacency matrix
+int is_strong() {
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            if(p[i][j] == 0) return 0;
+        }
+    }
+    return 1;
 }
