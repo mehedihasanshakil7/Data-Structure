@@ -1,8 +1,19 @@
+/* The input/output format of the program follows
+    Enter the row and column of the matrix: 3 4
+    Enter the matrix:
+    1 2 0 0
+    4 7 3 0
+    5 4 6 2
+    1 9 0 0
+    (The zero entries indicate that this cells are empty)
+    Enter which group you want to see: 3
+    Group 3 is: 5 4 6 2
+*/
 #include <stdio.h>
 int main(void)
 {
     int row, column, k = 0, temp, array[100], count = 0;
-    printf("Enter the size of matrix: ");
+    printf("Enter the row and column of the matrix: ");
     scanf("%d%d", &row, &column);
     int group[row], number[row];
     printf("Enter the matrix:\n");
@@ -22,6 +33,7 @@ int main(void)
     printf("Enter which group you want to see: ");
     scanf("%d", &show);
     int start = group[show-1], end = start+number[show-1];
+    printf("\nGroup %d is: ", show);
     for(int i = start; i < end; i++) {
         printf("%d ", array[i]);
     }
