@@ -1,4 +1,3 @@
-//No input output
 #include <stdio.h>
 #define MAX 50
 int stack[MAX], top = -1;
@@ -7,7 +6,16 @@ int pop();
 int peek();
 void display();
 int main(void) {
-    
+    push(5);
+    push(6);
+    printf("\nThe contents of the stack are: ");
+    display();
+    printf("\n");
+    pop();
+    pop();
+    printf("\nThe contents of the stack are: ");
+    display();
+    printf("\n");
     return 0;
 }
 
