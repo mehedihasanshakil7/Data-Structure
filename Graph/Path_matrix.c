@@ -1,5 +1,5 @@
 #include <stdio.h>
-int mat[10][10], power_matrix[4][10][10], n, Br[10][10], p[10][10];
+int mat[10][10], power_matrix[10][10][10], n, Br[10][10], p[10][10];
 void input();
 void print(int[10][10]);
 void copy();
@@ -60,7 +60,7 @@ void copy() {
 //Calculate the power matrices
 void calculate_power_matrix() {
     int temp = 0;
-    for(int p = 0; p < 3; p++) {
+    for(int p = 0; p < n-1; p++) {
         for(int k = 0; k < n; k++) {
             for(int i = 0; i < n; i++) {
                 for(int j = 0; j < n; j++) {
@@ -75,7 +75,7 @@ void calculate_power_matrix() {
 
 //Determine path matrix from power matrix
 void create_all_path_matrix() {
-    for(int p = 0; p < 4; p++) {
+    for(int p = 0; p < n; p++) {
         for(int i = 0; i < n; i++) {
             for(int j = 0; j < n; j++) {
                 Br[i][j] += power_matrix[p][i][j];
