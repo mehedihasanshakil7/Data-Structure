@@ -1,30 +1,30 @@
 /* The input/output format of the program follows
-    Enter the row and column of the matrix: 3 4
-    Enter the matrix:
-    1 2 0 0
-    4 7 3 0
-    5 4 6 2
-    1 9 0 0
-    (The zero entries indicate that this cells are empty)
-    Enter which group you want to see: 3
-    Group 3 is: 5 4 6 2
+    ***input***
+    Enter number of groups: 3
+    
+    Enter the elements of group 1 (-1 to stop): 1 2 9 8 7 6 5 -1
+    Enter the elements of group 2 (-1 to stop): 4 7 3 -1
+    Enter the elements of group 3 (-1 to stop): 5 4 6 2 9 -1
+    
+    ***output***
+    Enter which group you want to see: 2
+    Group 2 is: 4 7 3
 */
 #include <stdio.h>
 int main(void)
 {
-    int row, column, k = 0, temp, array[100], count = 0;
-    printf("Enter the row and column of the matrix: ");
-    scanf("%d%d", &row, &column);
-    int group[row], number[row];
-    printf("Enter the matrix:\n");
-    for(int i = 0; i < row; i++) {
+    int g, k = 0, temp, array[100], count = 0;
+    printf("\nEnter number of groups: ");
+    scanf("%d", &g);
+    int group[g], number[g];
+    for(int i = 0; i < g; i++) {
+        printf("\nEnter the elements of group %d (-1 to stop): ", i+1);
         group[i] = k; //Starting index of a group
-        for(int j = 0; j < column; j++) {
+        while(1) {
             scanf("%d", &temp);
-            if(temp != 0) {
-                count++;
-                array[k++] = temp;
-            }
+            if(temp == -1) break;
+            count++;
+            array[k++] = temp;
         }
         number[i] = count; //Number of elements in a group
         count = 0;
