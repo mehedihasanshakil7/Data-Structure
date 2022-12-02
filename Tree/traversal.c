@@ -17,13 +17,20 @@ struct node *peek();
 int isEmpty();
 struct node *create_tree();
 void print_postorder();
+void print_inorder();
+void print_preorder();
 void print_tree(struct node *, int);
 int main(void)
 {
     root = create_tree();
     printf("\nPrinted the tree hrizontally:\n");
     print_tree(root, 0);
+    // printf("\nPostorder traversal: ");
     print_postorder();
+    // printf("\nInorder traversal: ");
+    // print_inorder();
+    // printf("\nPreorder traversal: ");
+    // print_preorder();
     return 0;
 }
 
@@ -60,7 +67,7 @@ struct node *create_node(int item)
     return temp;
 }
 
-//Iterative process
+// Iterative process
 void print_postorder()
 {
     if (root == NULL)
@@ -69,50 +76,73 @@ void print_postorder()
         return;
     }
     ptr = root;
-    push(NULL); //Sentinel
+    push(NULL); // Sentinel
     while (ptr != NULL)
     {
         push(ptr);
         if (ptr->right != NULL)
         {
             push(ptr->right);
+            ptr->right->status = -1;
         }
-        ptr = ptr->left; //Traverse to the left most path
+        ptr = ptr->left;
         if (ptr == NULL)
         {
-            ptr = peek();
-            if (ptr->right != NULL)
+            ptr = pop();
+            while (ptr->status == 1)
             {
-                push(ptr->right);
-            }
-            else
-            {
-                while (ptr->right == NULL)
-                {
-                    ptr = pop();
-                    printf("%d ", ptr->data);
-                }
+                printf("%d ", ptr->data);
                 ptr = pop();
             }
+            ptr->status = 1;
         }
     }
-    /*while (ptr != NULL)
+}
+
+void print_inorder()
+{
+    if (root == NULL)
+    {
+        printf("\nThe tree is empty\n");
+        return;
+    }
+    ptr = root;
+    push(NULL);
+    while (ptr != NULL)
     {
         push(ptr);
+        ptr = ptr->left;
+        while (ptr == NULL)
+        {
+            ptr = pop();
+            printf("%d ", ptr->data);
+            ptr = ptr->right;
+        }
+    }
+}
+
+void print_preorder()
+{
+    if (root == NULL)
+    {
+        printf("\nThe tree is empty\n");
+        return;
+    }
+    ptr = root;
+    push(NULL);
+    while (ptr != NULL)
+    {
+        printf("%d ", ptr->data);
         if (ptr->right != NULL)
         {
             push(ptr->right);
-            ptr->status = -1;
         }
         ptr = ptr->left;
+        if (ptr == NULL)
+        {
+            ptr = pop();
+        }
     }
-    ptr = pop();
-    while (ptr->status == 1)
-    {
-        printf("%d ", ptr->data);
-        ptr = pop();
-    }
-    ptr->status = 1;*/
 }
 
 // Print as tree (horizontally)
